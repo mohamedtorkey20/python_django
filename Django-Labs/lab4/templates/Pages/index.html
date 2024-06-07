@@ -1,0 +1,34 @@
+{% extends 'Parts/main.html' %}
+
+{% block main-content %}
+<div class="container mt-5">
+  <div class="row">
+    {% for movie in movies %}
+    <div class="col-md-4 mb-4">
+      <div class="card" style="background-color: #FFF8DC; height: 250px;">
+     
+        <div class="card-body">
+          <a href="{% url 'movieDetails' movie.pk %}" class="text-decoration-none">
+            <h4 class="card-title text-center bg-secondary text-white   p-2">{{ movie.title }}</h3>
+            </a>
+              <h6 class="card-subtitle mt-2 mb-2 text-muted">Release Date: {{ movie.release_date }}</h6>
+              <p class="card-text">{{ movie.description }}</p>
+              <p class="card-text">
+                <strong>Categories:</strong>
+                {% for category in movie.categories.all %}
+                {{ category.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+              <p class="card-text">
+                <strong>Casts:</strong>
+                {% for cast in movie.casts.all %}
+                {{ cast.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+  </div>
+</div>
+{% endblock %}
